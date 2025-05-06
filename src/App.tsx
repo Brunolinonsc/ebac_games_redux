@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import Header from './components/Header'
 import Produtos from './containers/Produtos'
-
 import { GlobalStyle } from './styles'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
-export type Game = {
+export type Game ={
   id: number
   titulo: string
   plataformas: string[]
@@ -13,10 +14,8 @@ export type Game = {
   categoria: string
   imagem: string
 }
-
 function App() {
   const [games, setGames] = useState<Game[]>([])
-  const [carrinho, setCarrinho] = useState<Game[]>([])
 
   useEffect(() => {
     fetch('http://localhost:4000/produtos')
@@ -24,18 +23,17 @@ function App() {
       .then((res) => setGames(res))
   }, [])
 
-  function adicionarAoCarrinho(jogo: Game): void {
-    throw new Error('Function not implemented.')
+  function adicionarAoCarrinho() {
+    console.log('teste')
   }
-
   return (
-    <>
+    <Provider store={store}>
       <GlobalStyle />
       <div className="container">
-        <Header itensNoCarrinho={carrinho} />
+        <Header />
         <Produtos jogos={games} adicionarAoCarrinho={adicionarAoCarrinho} />
       </div>
-    </>
+    </Provider>
   )
 }
 
