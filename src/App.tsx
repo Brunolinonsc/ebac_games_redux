@@ -5,7 +5,7 @@ import { GlobalStyle } from './styles'
 import { Provider } from 'react-redux'
 import { store } from './store'
 
-export type Game ={
+export type Game = {
   id: number
   titulo: string
   plataformas: string[]
@@ -15,23 +15,12 @@ export type Game ={
   imagem: string
 }
 function App() {
-  const [games, setGames] = useState<Game[]>([])
-
-  useEffect(() => {
-    fetch('http://localhost:4000/produtos')
-      .then((res) => res.json())
-      .then((res) => setGames(res))
-  }, [])
-
-  function adicionarAoCarrinho() {
-    console.log('teste')
-  }
   return (
     <Provider store={store}>
       <GlobalStyle />
       <div className="container">
         <Header />
-        <Produtos jogos={games} adicionarAoCarrinho={adicionarAoCarrinho} />
+        <Produtos />
       </div>
     </Provider>
   )
